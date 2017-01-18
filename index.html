@@ -17,9 +17,9 @@
     </div>
     <div ng-show="results !== undefined && results.length > 0"
          ng-repeat="result in results">
-      <h3>({{result.Year}}) {{result.Title}}</h3>
+      <p><a href="{{result.url}}">{{result.url}}</a></p>
       <img ng-if="result.Poster !== 'N/A'"
-           ng-src="{{result.Poster}}" />
+           ng-src="{{result.images.fixed_height.url}}" />
       <img ng-if="result.Poster === 'N/A'" src="not-found.jpg">
     </div>
   </body>

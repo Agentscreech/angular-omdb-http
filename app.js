@@ -1,7 +1,7 @@
 var app = angular.module("MovieApp", []);
 app.controller("MovieCtrl", ["$scope", "$http",
     function($scope, $http) {
-  $scope.searchTerm = 'Deer Hunter';
+  $scope.searchTerm = '';
   $scope.results = undefined;
 
   $scope.$watch('searchTerm', function(newVal, oldVal) {
@@ -10,23 +10,23 @@ app.controller("MovieCtrl", ["$scope", "$http",
 
   $scope.search = function() {
     var req = {
-      url: 'http://www.omdbapi.com',
+      url: 'http://api.giphy.com/v1/gifs/search?q='+$scope.searchTerm+'&api_key=dc6zaTOxFJmzC',
       method: "GET",
       params: {
         s: $scope.searchTerm
       }
-    }
+    };
 
     $http(req).then(function success(res) {
       console.log("HTTP success:", res);
-      if (res.data.Error === "Movie not found!") {
+      if (res.data.Error === "Image not found!") {
         $scope.results = [];
       } else {
-        $scope.results = res.data.Search;
+        $scope.results = res.data.data;
       }
     }, function failure(res) {
       $scope.results = [];
       console.log("HTTP failed:", res);
     });
-  }
+    };
 }]);
